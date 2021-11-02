@@ -9,8 +9,8 @@ import { map, switchMap, tap } from 'rxjs/operators';
 })
 export class HolidayConfig implements AfterViewInit {
   @ViewChild('list') list;
-
-  public source: Array<{ text: string; value: number }> = [
+  value: Array<{ text: string; value: number }> = [];
+  public source: Array<{ text: string; value: number; isActive?: boolean }> = [
     {
       value: 1,
       text: 'Sarine',
@@ -52,17 +52,19 @@ export class HolidayConfig implements AfterViewInit {
       text: 'Crystie',
     },
   ];
-
+  disableConfig = false;
   public data: Array<{ text: string; value: number }>;
 
   constructor() {
+    this.source.forEach((v) => {
+      v.isActive = true;
+    });
     this.data = this.source.slice();
   }
 
   ngAfterViewInit() {
     const contains = (value) => (s) =>
       s.text.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    console.log(this.list);
     this.list.filterChange
       .asObservable()
       .pipe(
@@ -73,5 +75,29 @@ export class HolidayConfig implements AfterViewInit {
       .subscribe((x) => {
         this.data = x;
       });
+  }
+
+  onValueChange($event: Array<{ text: string; value: number }>): void {
+    console.log($event);
+    if ($event.length >= 5) {
+      this.source.forEach((v) => {
+        v.isActive = false;
+      });
+    } else {
+      this.source.forEach((v) => {
+        v.isActive = true;
+      });
+    }
+  }
+  itemDisabled(itemArgs: {
+    dataItem: {
+      text: string;
+      value: number;
+      isActive?: boolean;
+    };
+    index: number;
+  }): boolean {
+    console.log(itemArgs);
+    return !itemArgs.dataItem.isActive;
   }
 }

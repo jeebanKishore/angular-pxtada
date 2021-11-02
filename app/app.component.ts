@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   showConfig = false;
-
-  showHideConfig(value) {
-    this.showConfig = !value;
-  }
 }

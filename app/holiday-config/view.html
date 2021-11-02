@@ -1,15 +1,18 @@
+<div class="example-wrapper">
+  <p>SHOW/HIDE CALENDERS</p>
+  <kendo-multiselect
+    #list
+    [checkboxes]="{ checkOnClick: false }"
+    [autoClose]="false"
+    [data]="data"
+    [filterable]="true"
+    [itemDisabled]="itemDisabled"
+    [textField]="'text'"
+    [valueField]="'value'"
+    [(ngModel)]="value"
+    placeholder="Filter"
+    (valueChange)="onValueChange($event)"
+  ></kendo-multiselect>
+</div>
+
 <div class="example-config">Current value: {{value | json}}</div>
-  <div class="example-wrapper">
-    <p>Favorite sport:</p>
-    <kendo-multiselect
-      #list
-      [checkboxes]="{ checkOnClick: false }"
-      [autoClose]="false"
-      [data]="data"
-      [filterable]="true"
-      [textField]="'text'"
-      [valueField]="'value'"
-      [(ngModel)]="value"
-      placeholder="Filter"
-    ></kendo-multiselect>
-  </div>
