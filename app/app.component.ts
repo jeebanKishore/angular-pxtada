@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ViewChild,
-} from '@angular/core';
-import { from } from 'rxjs';
-import { delay, map, switchMap, tap } from 'rxjs/operators';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
