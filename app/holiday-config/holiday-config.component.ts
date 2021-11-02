@@ -78,7 +78,6 @@ export class HolidayConfig implements AfterViewInit {
   }
 
   onValueChange($event: Array<{ text: string; value: number }>): void {
-    console.log($event);
     if ($event.length >= 5) {
       this.source.forEach((v) => {
         v.isActive = false;
@@ -97,7 +96,6 @@ export class HolidayConfig implements AfterViewInit {
     };
     index: number;
   }): boolean {
-    console.log(itemArgs);
     return !itemArgs.dataItem.isActive;
   }
 }
