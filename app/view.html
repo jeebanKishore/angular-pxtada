@@ -1,8 +1,8 @@
 <ng-container *ngIf="!showConfig">
   <kendo-splitter orientation="horizontal" style="height: 300px; width: 320px">
-    <kendo-splitter-pane size="20%">
+    <kendo-splitter-pane size="25%">
       <div class="pane-content">
-        <p>Date Filter Pane</p>
+        <p>CALENDER</p>
       </div>
     </kendo-splitter-pane>
 
@@ -17,11 +17,7 @@
             <kendo-calendar type="classic"></kendo-calendar>
           </div>
         </kendo-splitter-pane>
-        <kendo-splitter-pane
-          [resizable]="false"
-          [collapsible]="false"
-          size="10%"
-        >
+        <kendo-splitter-pane [resizable]="false" [collapsible]="false">
           <div class="pane-content">
             <p>Warnings and Infos.</p>
           </div>
@@ -35,12 +31,19 @@
   <div class="example-wrapper">
     <p>Favorite sport:</p>
     <kendo-multiselect
+      #list
       [checkboxes]="{ checkOnClick: false }"
       [autoClose]="false"
-      [data]="listItems"
+      [data]="data"
+      [filterable]="true"
+      [textField]="'text'"
+      [valueField]="'value'"
       [(ngModel)]="value"
+      placeholder="Filter"
     ></kendo-multiselect>
   </div>
 </ng-container>
 
-<span (click)="showConfig=!showConfig">aas</span>
+<span (click)="showConfig=!showConfig"
+  >{{(showConfig)? 'Hide Config': 'Show Config'}}</span
+>
