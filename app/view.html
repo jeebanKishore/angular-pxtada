@@ -1,22 +1,46 @@
-<kendo-splitter orientation="horizontal" style="height: 300px; width: 320px">
-  <kendo-splitter-pane size="20%">
-    <div class="pane-content">
-      <p>Date Filter Pane</p>
-    </div>
-  </kendo-splitter-pane>
+<ng-container *ngIf="!showConfig">
+  <kendo-splitter orientation="horizontal" style="height: 300px; width: 320px">
+    <kendo-splitter-pane size="20%">
+      <div class="pane-content">
+        <p>Date Filter Pane</p>
+      </div>
+    </kendo-splitter-pane>
 
-  <kendo-splitter-pane [resizable]="false" [collapsible]="false">
-    <kendo-splitter orientation="vertical">
-      <kendo-splitter-pane [resizable]="false" [collapsible]="false" size="90%">
-        <div class="pane-content">
-          <kendo-calendar type="classic"></kendo-calendar>
-        </div>
-      </kendo-splitter-pane>
-      <kendo-splitter-pane [resizable]="false" [collapsible]="false" size="10%">
-        <div class="pane-content">
-          <p>Warnings and Infos.</p>
-        </div>
-      </kendo-splitter-pane>
-    </kendo-splitter>
-  </kendo-splitter-pane>
-</kendo-splitter>
+    <kendo-splitter-pane [resizable]="false" [collapsible]="false">
+      <kendo-splitter orientation="vertical">
+        <kendo-splitter-pane
+          [resizable]="false"
+          [collapsible]="false"
+          size="90%"
+        >
+          <div class="pane-content">
+            <kendo-calendar type="classic"></kendo-calendar>
+          </div>
+        </kendo-splitter-pane>
+        <kendo-splitter-pane
+          [resizable]="false"
+          [collapsible]="false"
+          size="10%"
+        >
+          <div class="pane-content">
+            <p>Warnings and Infos.</p>
+          </div>
+        </kendo-splitter-pane>
+      </kendo-splitter>
+    </kendo-splitter-pane>
+  </kendo-splitter></ng-container
+>
+<ng-container *ngIf="showConfig">
+  <div class="example-config">Current value: {{value | json}}</div>
+  <div class="example-wrapper">
+    <p>Favorite sport:</p>
+    <kendo-multiselect
+      [checkboxes]="{ checkOnClick: false }"
+      [autoClose]="false"
+      [data]="listItems"
+      [(ngModel)]="value"
+    ></kendo-multiselect>
+  </div>
+</ng-container>
+
+<span (click)="showConfig=!showConfig">aas</span>

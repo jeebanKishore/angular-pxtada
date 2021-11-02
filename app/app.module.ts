@@ -7,6 +7,9 @@ import { LabelModule } from '@progress/kendo-angular-label';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from '@progress/kendo-angular-layout';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -14,10 +17,14 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     IntlModule,
     LabelModule,
     LayoutModule,
     DateInputsModule,
+    DropDownsModule,
+    LabelModule,
+    InputsModule,
   ],
 })
 export class AppModule {}
