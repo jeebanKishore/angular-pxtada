@@ -1,5 +1,24 @@
-<kendo-splitter orientation="vertical" style="height: 349px">
-  <div class="col-xs-12 col-md-6 example-col">
-    <kendo-calendar type="classic"></kendo-calendar>
-  </div>
+<kendo-splitter orientation="horizontal" style="height: 350px">
+  <kendo-splitter-pane size="20%">
+    <div class="pane-content">
+      <h3>Date Filter Pane</h3>
+    </div>
+  </kendo-splitter-pane>
+
+  <kendo-splitter-pane [resizable]="false" [collapsible]="false">
+    <kendo-splitter orientation="vertical">
+      <kendo-splitter-pane [resizable]="false" [collapsible]="false" size="90%">
+        <div class="pane-content">
+          <kendo-calendar type="classic"></kendo-calendar>
+        </div>
+      </kendo-splitter-pane>
+      <kendo-splitter-pane [resizable]="false" [collapsible]="false" size="10%">
+        <div class="pane-content">
+          <h3>Warnign and Infos</h3>
+        </div>
+      </kendo-splitter-pane>
+    </kendo-splitter>
+  </kendo-splitter-pane>
 </kendo-splitter>
+
+<kendo-calendar type="classic"></kendo-calendar>
