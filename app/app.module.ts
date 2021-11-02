@@ -10,10 +10,11 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { FormsModule } from '@angular/forms';
+import { HolidayConfig } from './holiday-config/holiday-config.component';
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [AppComponent],
+  declarations: [AppComponent, HolidayConfig],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

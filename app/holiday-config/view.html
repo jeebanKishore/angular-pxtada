@@ -1,0 +1,15 @@
+<div class="example-config">Current value: {{value | json}}</div>
+  <div class="example-wrapper">
+    <p>Favorite sport:</p>
+    <kendo-multiselect
+      #list
+      [checkboxes]="{ checkOnClick: false }"
+      [autoClose]="false"
+      [data]="data"
+      [filterable]="true"
+      [textField]="'text'"
+      [valueField]="'value'"
+      [(ngModel)]="value"
+      placeholder="Filter"
+    ></kendo-multiselect>
+  </div>
