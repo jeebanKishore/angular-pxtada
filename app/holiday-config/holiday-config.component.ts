@@ -79,13 +79,7 @@ export class HolidayConfig implements AfterViewInit {
   disableConfig = false;
   public data: Array<HolidayConfigModel>;
   public selectionCount = 0;
-  public colorData = [
-    '0#83a1c2',
-    '1#B55F99',
-    '2#26A299',
-    '3#716ABA',
-    '4#9E5A6A',
-  ];
+  public colorData = ['#83a1c2', '#B55F99', '#26A299', '#716ABA', '#9E5A6A'];
 
   lastColorSelectedIndex = this.colorData.length - 1;
   constructor() {

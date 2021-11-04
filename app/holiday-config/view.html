@@ -19,6 +19,12 @@
     (close)="preventClosingDropdown($event)"
     animate="false"
   ></kendo-multiselect>
+  <div *ngFor="let color of colorData">
+  <span [style.background]="color"></span>
 </div>
+<div></div>
+</div>
+
+
 
 <!-- <div class="example-config">Current value: {{value | json}}</div> -->
