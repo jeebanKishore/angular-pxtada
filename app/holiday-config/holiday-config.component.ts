@@ -134,33 +134,42 @@ export class HolidayConfig implements AfterViewInit {
   onValueChange($event: Array<HolidayConfigModel>): void {
     if ($event.length === 5) {
       this.selectionCount += 1;
-      this.lastColorSelectedIndex = this.getColorIndex(this.lastColorSelectedIndex, 'left');
+      this.lastColorSelectedIndex = this.getColorIndex(
+        this.lastColorSelectedIndex,
+        'left'
+      );
+      this.source = this.manupulateSourceAsperSelection(
+        this.source,
+        $event[$event.length - 1],
+        this.colorData[this.lastColorSelectedIndex]
+      );
       const unselectedIndex = [];
       this.source.forEach((v, index) => {
         if ($event.some((data) => v.value === data.value)) {
           unselectedIndex.push(index);
         }
       });
-      console.log();
-    } else if($event.length <=4 && $event.length >=1){
+      console.log(unselectedIndex);
+    } else if ($event.length <= 4 && $event.length >= 1) {
+      this.selectionCount += 1;
+      this.lastColorSelectedIndex = this.getColorIndex(
+        this.lastColorSelectedIndex,
+        'left'
+      );
       this.source = this.manupulateSourceAsperSelection(
         this.source,
-        $event[$event.length-1],
-        
+        $event[$event.length - 1],
+        this.colorData[this.lastColorSelectedIndex]
       );
-      if (this.selectionCount > $event.length) {
-        if (this.lastColorSelectedIndex === 1) {
-          this.lastColorSelectedIndex = 4;
-        } else {
-          this.lastColorSelectedIndex -= 1;
-        }
-      }
-      console.log(
-        this.source,
-        this.selectionCount,
-        this.lastColorSelectedIndex
-      );
+    } else if ($event.length === 0) {
+      this.selectionCount = 0;
+      this.lastColorSelectedIndex = 0;
+      this.source.forEach((value) => {
+        value.isActive = true;
+        value.colorValue = null;
+      });
     }
+    console.log(this.source, this.selectionCount, this.lastColorSelectedIndex);
   }
 
   getColorIndex(index: number, type: 'left' | 'right') {
@@ -182,7 +191,7 @@ export class HolidayConfig implements AfterViewInit {
   manupulateSourceAsperSelection(
     source: Array<HolidayConfigModel>,
     selectionSet: HolidayConfigModel,
-    colorValue: 'string'
+    colorValue: string
   ) {
     source.forEach((data: HolidayConfigModel, index: number) => {
       data.isActive = true;
