@@ -195,6 +195,12 @@ export class HolidayConfig implements AfterViewInit {
     }
   }
 
+  /**
+   * Assigned color value to the source array
+   * @param source: main item collection
+   * @param SelectionSet: Latest selection data
+   * @param colorValue: Colordata to assign
+   */
   manupulateSourceAsperSelection(
     source: Array<HolidayConfigModel>,
     selectionSet: HolidayConfigModel,
@@ -208,7 +214,14 @@ export class HolidayConfig implements AfterViewInit {
     });
     return source;
   }
-
+  /**
+   * Clear color data and active status depending on supportedConfigurations
+   * @param source: main item collection
+   * @param selectedItems: Latest selection dataset
+   * @param deactivateRemaining: Mark all unselected items as inactive
+   * @param activateRemaining: Mark all unselected items as active
+   *in both cases we have to clear the color data
+   */
   clearColorValueFromUnselectedItems(
     source: Array<HolidayConfigModel>,
     selectedItems: Array<HolidayConfigModel>,
