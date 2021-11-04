@@ -156,7 +156,6 @@ export class HolidayConfig implements AfterViewInit {
           this.source[value].isActive = false;
         });
       }
-      console.log(unselectedIndex);
     } else if ($event.length <= 4 && $event.length >= 1) {
       this.selectionCount += 1;
       this.lastColorSelectedIndex = this.getColorIndex(
