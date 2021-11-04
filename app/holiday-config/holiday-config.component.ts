@@ -135,10 +135,13 @@ export class HolidayConfig implements AfterViewInit {
         this.colorData[this.lastColorSelectedIndex]
       );
       /**
-       * We have to clear all other items and mark them as inactive
+       * We have to clear all other items, clear their color value and mark them as inactive.
        */
       this.clearColorValueFromUnselectedItems(this.source, $event, true, false);
     } else if ($event.length <= 4 && $event.length >= 1) {
+      /**
+       *If the selection is between 1 and 4 assign Color value as they are avilable sequentially
+       */
       if (this.selectionCount > $event.length) {
         this.selectionCount -= 1;
         this.clearColorValueFromUnselectedItems(
@@ -160,6 +163,9 @@ export class HolidayConfig implements AfterViewInit {
         );
       }
     } else if ($event.length === 0) {
+    /**
+     *If there is no item selected clear color data and mark all as active
+     */
       this.selectionCount = 0;
       this.lastColorSelectedIndex = 0;
       this.source.forEach((value) => {
@@ -168,7 +174,11 @@ export class HolidayConfig implements AfterViewInit {
       });
     }
   }
-
+  /**
+   * This function is to rotate the index of colorData as called
+   * @param: index = Current index of color assigned
+   * @param: type = Rotate the index to either left or right
+   */
   getColorIndex(index: number, type: 'left' | 'right') {
     if (type === 'left') {
       if (index === 4) {
