@@ -126,7 +126,7 @@ export class HolidayConfig implements AfterViewInit {
         this.colorData[this.lastColorSelectedIndex]
       );
 
-      this.clearColorValueFromUnselectedItems(this.source, $event, true, true);
+      this.clearColorValueFromUnselectedItems(this.source, $event, true, false);
     } else if ($event.length <= 4 && $event.length >= 1) {
       if (this.selectionCount > $event.length) {
         this.selectionCount -= 1;
