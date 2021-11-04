@@ -14,6 +14,7 @@ export interface HolidayConfigModel {
   value: number;
   isActive?: boolean;
   colorValue: string;
+  isSelected?: boolean;
 }
 
 export function arrayRotateOne(arr: Array<any>, lenght: number): Array<any> {
@@ -157,11 +158,19 @@ export class HolidayConfig implements AfterViewInit {
         });
       }
     } else if ($event.length <= 4 && $event.length >= 1) {
-      this.selectionCount += 1;
-      this.lastColorSelectedIndex = this.getColorIndex(
-        this.lastColorSelectedIndex,
-        'left'
-      );
+      if (this.selectionCount > $event.length) {
+        this.selectionCount -= 1;
+        this.lastColorSelectedIndex = this.getColorIndex(
+          this.lastColorSelectedIndex,
+          'right'
+        );
+      } else {
+        this.selectionCount += 1;
+        this.lastColorSelectedIndex = this.getColorIndex(
+          this.lastColorSelectedIndex,
+          'left'
+        );
+      }
       this.source = this.manupulateSourceAsperSelection(
         this.source,
         $event[$event.length - 1],
