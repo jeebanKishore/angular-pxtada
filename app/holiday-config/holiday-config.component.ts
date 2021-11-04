@@ -142,11 +142,11 @@ export class HolidayConfig implements AfterViewInit {
         }
       });
       console.log();
-    } else {
+    } else if($event.length <=4 && $event.length >=1){
       this.source = this.manupulateSourceAsperSelection(
         this.source,
-        $event,
-        this.selectionCount
+        $event[$event.length-1],
+        
       );
       if (this.selectionCount > $event.length) {
         if (this.lastColorSelectedIndex === 1) {
@@ -181,19 +181,13 @@ export class HolidayConfig implements AfterViewInit {
 
   manupulateSourceAsperSelection(
     source: Array<HolidayConfigModel>,
-    selectionSet: Array<HolidayConfigModel>,
-    selectionCount: number
+    selectionSet: HolidayConfigModel,
+    colorValue: 'string'
   ) {
     source.forEach((data: HolidayConfigModel, index: number) => {
       data.isActive = true;
-      if (selectionSet.some((selection) => selection.value === data.value)) {
-        if (this.lastColorSelectedIndex === 5) {
-          this.lastColorSelectedIndex = 0;
-          data.colorValue = this.colorData[this.lastColorSelectedIndex];
-        } else {
-          this.lastColorSelectedIndex += 1;
-          data.colorValue = this.colorData[this.lastColorSelectedIndex];
-        }
+      if (selectionSet.value === data.value) {
+        data.colorValue = colorValue;
       }
     });
     return source;
