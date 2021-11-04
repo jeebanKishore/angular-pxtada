@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -15,25 +14,6 @@ export interface HolidayConfigModel {
   isActive?: boolean;
   colorValue: string;
   isSelected?: boolean;
-}
-
-export function arrayRotateOne(arr: Array<any>, lenght: number): Array<any> {
-  if (lenght) {
-    // Right
-    if (lenght > 0) {
-      for (let i = 0; i < lenght; i++) {
-        arr.unshift(arr.pop());
-      }
-    }
-    // Left
-    if (lenght < 0) {
-      for (let i = 0; i < Math.abs(lenght); i++) {
-        arr.push(arr.shift());
-      }
-    }
-  }
-
-  return arr;
 }
 
 @Component({
