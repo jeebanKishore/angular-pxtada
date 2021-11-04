@@ -160,10 +160,10 @@ export class HolidayConfig implements AfterViewInit {
     } else if ($event.length <= 4 && $event.length >= 1) {
       if (this.selectionCount > $event.length) {
         this.selectionCount -= 1;
-        this.lastColorSelectedIndex = this.getColorIndex(
-          this.lastColorSelectedIndex,
-          'right'
-        );
+        // this.lastColorSelectedIndex = this.getColorIndex(
+        //   this.lastColorSelectedIndex,
+        //   'right'
+        // );
         this.clearColorValueFromUnselectedItems(this.source, $event, false);
       } else {
         this.selectionCount += 1;
