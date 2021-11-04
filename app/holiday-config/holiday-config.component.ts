@@ -132,17 +132,16 @@ export class HolidayConfig implements AfterViewInit {
   }
 
   onValueChange($event: Array<HolidayConfigModel>): void {
-    this.selectionCount =
-      this.selectionCount === 0 ? $event.length : this.selectionCount;
-    if ($event.length >= 5) {
-      this.source.forEach((v) => {
+    if ($event.length === 5) {
+      this.selectionCount += 1;
+      this.lastColorSelectedIndex = this.getColorIndex(this.lastColorSelectedIndex, 'left');
+      const unselectedIndex = [];
+      this.source.forEach((v, index) => {
         if ($event.some((data) => v.value === data.value)) {
-          v.isActive = true;
-        } else {
-          v.isActive = false;
-          v.colorValue = null;
+          unselectedIndex.push(index);
         }
       });
+      console.log();
     } else {
       this.source = this.manupulateSourceAsperSelection(
         this.source,
@@ -164,6 +163,22 @@ export class HolidayConfig implements AfterViewInit {
     }
   }
 
+  getColorIndex(index: number, type: 'left' | 'right') {
+    if (type === 'left') {
+      if (index === 4) {
+        return 0;
+      } else {
+        return (index += 1);
+      }
+    } else if (type === 'right') {
+      if (index === 0) {
+        return 4;
+      } else {
+        return (index -= 1);
+      }
+    }
+  }
+
   manupulateSourceAsperSelection(
     source: Array<HolidayConfigModel>,
     selectionSet: Array<HolidayConfigModel>,
@@ -179,8 +194,6 @@ export class HolidayConfig implements AfterViewInit {
           this.lastColorSelectedIndex += 1;
           data.colorValue = this.colorData[this.lastColorSelectedIndex];
         }
-      } else {
-        data.colorValue = null;
       }
     });
     return source;
