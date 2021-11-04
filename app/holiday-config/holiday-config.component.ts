@@ -98,7 +98,16 @@ export class HolidayConfig implements AfterViewInit {
   ];
   disableConfig = false;
   public data: Array<HolidayConfigModel>;
-  public colorData = ['#83a1c2', '#B55F99', '#26A299', '#716ABA', '#9E5A6A'];
+  public selectionCount = 0;
+  public colorData = [
+    '1#83a1c2',
+    '2#B55F99',
+    '3#26A299',
+    '4#716ABA',
+    '5#9E5A6A',
+  ];
+
+  lastColorSelectedIndex = 0;
   constructor() {
     this.source.forEach((v) => {
       v.isActive = true;
@@ -123,7 +132,8 @@ export class HolidayConfig implements AfterViewInit {
   }
 
   onValueChange($event: Array<HolidayConfigModel>): void {
-    console.log($event);
+    this.selectionCount =
+      this.selectionCount === 0 ? $event.length : this.selectionCount;
     if ($event.length >= 5) {
       this.source.forEach((v) => {
         if ($event.some((data) => v.value === data.value)) {
@@ -133,28 +143,47 @@ export class HolidayConfig implements AfterViewInit {
           v.colorValue = null;
         }
       });
-    } else {      
-      this.source.forEach((v) => {
-        v.isActive = true;
-        if ($event.some((data) => v.value === data.value)) {
-          v.isActive = true;
-          v.colorValue = this.colorData[0];
-          this.rotateColordata('left');
+    } else {
+      this.source = this.manupulateSourceAsperSelection(
+        this.source,
+        $event,
+        this.selectionCount
+      );
+      if (this.selectionCount > $event.length) {
+        if (this.lastColorSelectedIndex === 1) {
+          this.lastColorSelectedIndex = 4;
+        } else {
+          this.lastColorSelectedIndex -= 1;
         }
-      });
+      }
+      console.log(
+        this.source,
+        this.selectionCount,
+        this.lastColorSelectedIndex
+      );
     }
   }
 
-  manupulateSourceAsperSelection(source, selection){
-    
-  }
-
-  rotateColordata(diraction: string) {
-    if (diraction === 'left') {
-      this.colorData.push(this.colorData.shift());
-    } else if (diraction === 'left') {
-      this.colorData.unshift(this.colorData.pop());
-    }
+  manupulateSourceAsperSelection(
+    source: Array<HolidayConfigModel>,
+    selectionSet: Array<HolidayConfigModel>,
+    selectionCount: number
+  ) {
+    source.forEach((data: HolidayConfigModel, index: number) => {
+      data.isActive = true;
+      if (selectionSet.some((selection) => selection.value === data.value)) {
+        if (this.lastColorSelectedIndex === 5) {
+          this.lastColorSelectedIndex = 0;
+          data.colorValue = this.colorData[this.lastColorSelectedIndex];
+        } else {
+          this.lastColorSelectedIndex += 1;
+          data.colorValue = this.colorData[this.lastColorSelectedIndex];
+        }
+      } else {
+        data.colorValue = null;
+      }
+    });
+    return source;
   }
 
   itemDisabled(itemArgs: {
