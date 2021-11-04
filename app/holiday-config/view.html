@@ -19,12 +19,23 @@
     (close)="preventClosingDropdown($event)"
     animate="false"
   ></kendo-multiselect>
-  <div *ngFor="let color of colorData">
-  <span [style.background]="color"></span>
 </div>
-<div></div>
-</div>
+<ul>
+  <li *ngFor="let colr of colorData">
+    <h3 [style.background-color]="colr">{{colr}}</h3>
+    <ul>
+      <!-- <div class="example-config">Current value: {{value | json}}</div> -->
+    </ul>
+  </li>
+</ul>
 
-
-
-<!-- <div class="example-config">Current value: {{value | json}}</div> -->
+<ul>
+  <li *ngFor="let item of source">
+    <h3 *ngIf="item.colorValue" [style.background-color]="item.colorValue">
+      {{item.text}}
+    </h3>
+    <ul>
+      <!-- <div class="example-config">Current value: {{value | json}}</div> -->
+    </ul>
+  </li>
+</ul>
