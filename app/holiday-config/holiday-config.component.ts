@@ -246,18 +246,24 @@ export class HolidayConfig implements AfterViewInit {
       });
     }
   }
-
+  /**
+   * Kendo reference to mark all isActive flags as inactive an not selectable
+   */
   itemDisabled(itemArgs: {
     dataItem: HolidayConfigModel;
     index: number;
   }): boolean {
     return !itemArgs.dataItem.isActive;
   }
-
+  /**
+   * Stop closing th dropdown programmatically
+   */
   preventClosingDropdown($event) {
     $event.preventDefault();
   }
-
+  /**
+   * On Click on icon emit event to parent to close the window
+   */
   closeConfig() {
     this.closeConfigWindow.emit();
   }
