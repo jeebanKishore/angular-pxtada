@@ -171,12 +171,12 @@ export class HolidayConfig implements AfterViewInit {
           this.lastColorSelectedIndex,
           'left'
         );
+        this.source = this.manupulateSourceAsperSelection(
+          this.source,
+          $event[$event.length - 1],
+          this.colorData[this.lastColorSelectedIndex]
+        );
       }
-      this.source = this.manupulateSourceAsperSelection(
-        this.source,
-        $event[$event.length - 1],
-        this.colorData[this.lastColorSelectedIndex]
-      );
     } else if ($event.length === 0) {
       this.selectionCount = 0;
       this.lastColorSelectedIndex = 0;
@@ -210,7 +210,6 @@ export class HolidayConfig implements AfterViewInit {
     selectionSet: HolidayConfigModel,
     colorValue: string
   ) {
-    console.log('aaassasas', colorValue);
     source.forEach((data: HolidayConfigModel) => {
       data.isActive = true;
       if (selectionSet.value === data.value) {
@@ -227,7 +226,7 @@ export class HolidayConfig implements AfterViewInit {
   ) {
     const unselectedIndex = [];
     source.forEach((v, index) => {
-      if (selectedItems.some((data) => v.value === data.value)) {
+      if (!selectedItems.some((data) => v.value === data.value)) {
         unselectedIndex.push(index);
       }
     });
@@ -256,4 +255,3 @@ export class HolidayConfig implements AfterViewInit {
     this.closeConfigWindow.emit();
   }
 }
-
