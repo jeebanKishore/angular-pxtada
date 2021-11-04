@@ -126,17 +126,7 @@ export class HolidayConfig implements AfterViewInit {
         this.colorData[this.lastColorSelectedIndex]
       );
 
-      this.source.forEach((v, index) => {
-        if (!$event.some((data) => v.value === data.value)) {
-          unselectedIndex.push(index);
-        }
-      });
-      if (unselectedIndex.length > 0) {
-        unselectedIndex.forEach((value) => {
-          this.source[value].colorValue = null;
-          this.source[value].isActive = false;
-        });
-      }
+      this.clearColorValueFromUnselectedItems(this.source, $event, true, true);
     } else if ($event.length <= 4 && $event.length >= 1) {
       if (this.selectionCount > $event.length) {
         this.selectionCount -= 1;
@@ -144,7 +134,12 @@ export class HolidayConfig implements AfterViewInit {
         //   this.lastColorSelectedIndex,
         //   'right'
         // );
-        this.clearColorValueFromUnselectedItems(this.source, $event, false);
+        this.clearColorValueFromUnselectedItems(
+          this.source,
+          $event,
+          false,
+          true
+        );
       } else {
         this.selectionCount += 1;
         this.lastColorSelectedIndex = this.getColorIndex(
@@ -202,7 +197,8 @@ export class HolidayConfig implements AfterViewInit {
   clearColorValueFromUnselectedItems(
     source: Array<HolidayConfigModel>,
     selectedItems: Array<HolidayConfigModel>,
-    deactivateRemaining: boolean
+    deactivateRemaining: boolean,
+    activateRemaining: boolean
   ) {
     const unselectedIndex = [];
     source.forEach((v, index) => {
@@ -215,6 +211,9 @@ export class HolidayConfig implements AfterViewInit {
         this.source[value].colorValue = null;
         if (deactivateRemaining === true) {
           this.source[value].isActive = false;
+        }
+        if (activateRemaining === true) {
+          this.source[value].isActive = true;
         }
       });
     }
