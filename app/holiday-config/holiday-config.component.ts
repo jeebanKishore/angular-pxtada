@@ -164,6 +164,7 @@ export class HolidayConfig implements AfterViewInit {
           this.lastColorSelectedIndex,
           'right'
         );
+        this.clearColorValueFromUnselectedItems(this.source, $event, false);
       } else {
         this.selectionCount += 1;
         this.lastColorSelectedIndex = this.getColorIndex(
@@ -215,6 +216,27 @@ export class HolidayConfig implements AfterViewInit {
       }
     });
     return source;
+  }
+
+  clearColorValueFromUnselectedItems(
+    source: Array<HolidayConfigModel>,
+    selectedItems: Array<HolidayConfigModel>,
+    deactivateRemaining: boolean
+  ) {
+    const unselectedIndex = [];
+    source.forEach((v, index) => {
+      if (selectedItems.some((data) => v.value === data.value)) {
+        unselectedIndex.push(index);
+      }
+    });
+    if (unselectedIndex.length > 0) {
+      unselectedIndex.forEach((value) => {
+        this.source[value].colorValue = null;
+        if (deactivateRemaining === true) {
+          this.source[value].isActive = false;
+        }
+      });
+    }
   }
 
   itemDisabled(itemArgs: {
