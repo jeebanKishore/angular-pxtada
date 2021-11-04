@@ -1,5 +1,9 @@
 <div class="example-wrapper">
-  <p>SHOW/HIDE CALENDERS(5 Calenders Max)</p>
+  <div style="padding: 0px 5px 0px 10px">
+    <span>SHOW/HIDE CALENDARS(5 Calenders Max)</span>
+    <span style="float: right; cursor: pointer;" (click)="closeConfig()">X</span>
+  </div>
+
   <kendo-multiselect
     #list
     [checkboxes]="{ checkOnClick: false }"
@@ -13,6 +17,7 @@
     placeholder="Filter"
     (valueChange)="onValueChange($event)"
     (close)="preventClosingtheDropdown($event)"
+    animate="false"
   ></kendo-multiselect>
 </div>
 

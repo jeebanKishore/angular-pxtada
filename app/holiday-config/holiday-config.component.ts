@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { from } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
@@ -8,6 +15,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
   templateUrl: './view.html',
 })
 export class HolidayConfig implements AfterViewInit {
+  @Output() public closeConfigWindow = new EventEmitter();
   @ViewChild('list') list;
   value: Array<{ text: string; value: number }> = [];
   public source: Array<{ text: string; value: number; isActive?: boolean }> = [
@@ -81,7 +89,11 @@ export class HolidayConfig implements AfterViewInit {
   onValueChange($event: Array<{ text: string; value: number }>): void {
     if ($event.length >= 5) {
       this.source.forEach((v) => {
-        v.isActive = false;
+        if ($event.some((data) => v.value === data.value)) {
+          v.isActive = true;
+        } else {
+          v.isActive = false;
+        }
       });
     } else {
       this.source.forEach((v) => {
@@ -102,5 +114,9 @@ export class HolidayConfig implements AfterViewInit {
 
   preventClosingtheDropdown($event) {
     $event.preventDefault();
+  }
+
+  closeConfig() {
+    this.closeConfigWindow.emit();
   }
 }

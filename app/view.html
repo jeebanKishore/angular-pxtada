@@ -31,7 +31,9 @@
     </kendo-splitter></ng-container
   >
   <ng-container *ngIf="showConfig">
-    <my-holiday-config></my-holiday-config>
+    <my-holiday-config
+      (closeConfigWindow)="showConfig=false"
+    ></my-holiday-config>
   </ng-container>
 
   <span (click)="showConfig=!showConfig"
