@@ -12,6 +12,7 @@
     [(ngModel)]="value"
     placeholder="Filter"
     (valueChange)="onValueChange($event)"
+    (close)="preventClosingtheDropdown($event)"
   ></kendo-multiselect>
 </div>
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { from } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
@@ -65,6 +65,7 @@ export class HolidayConfig implements AfterViewInit {
   ngAfterViewInit() {
     const contains = (value) => (s) =>
       s.text.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    this.list.toggle(true);
     this.list.filterChange
       .asObservable()
       .pipe(
@@ -97,5 +98,9 @@ export class HolidayConfig implements AfterViewInit {
     index: number;
   }): boolean {
     return !itemArgs.dataItem.isActive;
+  }
+
+  preventClosingtheDropdown($event) {
+    $event.preventDefault();
   }
 }
