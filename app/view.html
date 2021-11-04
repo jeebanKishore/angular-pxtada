@@ -36,7 +36,7 @@
     ></my-holiday-config>
   </ng-container>
 
-  <span (click)="showConfig=!showConfig"
+  <span (click)="showConfig=!showConfig" *ngIf="(showConfig===false)"
     >{{(showConfig)? 'Hide Config': 'Show Config'}}</span
   >
 </div>
