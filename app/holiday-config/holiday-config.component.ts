@@ -97,8 +97,8 @@ export class HolidayConfig implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const contains = (value) => (s) =>
-      s.text.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    const contains = (value) => (stringData) =>
+      stringData.text.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     this.list.toggle(true);
     this.list.filterChange
       .asObservable()
