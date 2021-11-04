@@ -163,9 +163,9 @@ export class HolidayConfig implements AfterViewInit {
         );
       }
     } else if ($event.length === 0) {
-    /**
-     *If there is no item selected clear color data and mark all as active
-     */
+      /**
+       *If there is no item selected clear color data and mark all as active
+       */
       this.selectionCount = 0;
       this.lastColorSelectedIndex = 0;
       this.source.forEach((value) => {
@@ -241,7 +241,7 @@ export class HolidayConfig implements AfterViewInit {
     return !itemArgs.dataItem.isActive;
   }
 
-  preventClosingtheDropdown($event) {
+  preventClosingDropdown($event) {
     $event.preventDefault();
   }
 
