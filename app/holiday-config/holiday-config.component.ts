@@ -23,7 +23,7 @@ export interface HolidayConfigModel {
 export class HolidayConfig implements AfterViewInit {
   @Output() public closeConfigWindow = new EventEmitter();
   @ViewChild('list') list;
-  value: Array<{ text: string; value: number }> = [];
+  value: Array<HolidayConfigModel> = [];
   public source: Array<HolidayConfigModel> = [
     {
       value: 1,
@@ -89,6 +89,7 @@ export class HolidayConfig implements AfterViewInit {
 
   lastColorSelectedIndex = this.colorData.length - 1;
   constructor() {
+    // To Do : If From server if we get 5 nos of Active items, mark all others as inactive
     this.source.forEach((v) => {
       v.isActive = true;
     });
@@ -96,9 +97,12 @@ export class HolidayConfig implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    //Find typed string from collection
     const contains = (value) => (stringData) =>
       stringData.text.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    //Open the Dropdown permanately.
     this.list.toggle(true);
+    //Listen to input box changes to give out filtered data.
     this.list.filterChange
       .asObservable()
       .pipe(
@@ -110,9 +114,15 @@ export class HolidayConfig implements AfterViewInit {
         this.data = x;
       });
   }
-
+  /**
+   * Listen to checkbox selection changes
+   * @param: $event = collection of selected check box data
+   */
   onValueChange($event: Array<HolidayConfigModel>): void {
     const unselectedIndex = [];
+    /**
+     * If event length is 5 we have to disable the other remaining selections.
+     */
     if ($event.length === 5) {
       this.selectionCount += 1;
       this.lastColorSelectedIndex = this.getColorIndex(
@@ -124,7 +134,9 @@ export class HolidayConfig implements AfterViewInit {
         $event[$event.length - 1],
         this.colorData[this.lastColorSelectedIndex]
       );
-
+      /**
+       * We have to clear all other items and mark them as inactive
+       */
       this.clearColorValueFromUnselectedItems(this.source, $event, true, false);
     } else if ($event.length <= 4 && $event.length >= 1) {
       if (this.selectionCount > $event.length) {
@@ -155,11 +167,9 @@ export class HolidayConfig implements AfterViewInit {
         value.colorValue = null;
       });
     }
-    console.log(this.source, this.selectionCount, this.lastColorSelectedIndex);
   }
 
   getColorIndex(index: number, type: 'left' | 'right') {
-    console.log(index, type);
     if (type === 'left') {
       if (index === 4) {
         return 0;
