@@ -189,6 +189,7 @@ export class HolidayConfig implements AfterViewInit {
   }
 
   getColorIndex(index: number, type: 'left' | 'right') {
+    console.log(index, type);
     if (type === 'left') {
       if (index === 4) {
         return 0;
@@ -209,7 +210,8 @@ export class HolidayConfig implements AfterViewInit {
     selectionSet: HolidayConfigModel,
     colorValue: string
   ) {
-    source.forEach((data: HolidayConfigModel, index: number) => {
+    console.log('aaassasas', colorValue);
+    source.forEach((data: HolidayConfigModel) => {
       data.isActive = true;
       if (selectionSet.value === data.value) {
         data.colorValue = colorValue;
@@ -254,3 +256,4 @@ export class HolidayConfig implements AfterViewInit {
     this.closeConfigWindow.emit();
   }
 }
+
