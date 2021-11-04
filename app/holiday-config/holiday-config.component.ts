@@ -107,7 +107,7 @@ export class HolidayConfig implements AfterViewInit {
     '5#9E5A6A',
   ];
 
-  lastColorSelectedIndex = 0;
+  lastColorSelectedIndex = this.colorData.length - 1;
   constructor() {
     this.source.forEach((v) => {
       v.isActive = true;
@@ -132,6 +132,7 @@ export class HolidayConfig implements AfterViewInit {
   }
 
   onValueChange($event: Array<HolidayConfigModel>): void {
+    const unselectedIndex = [];
     if ($event.length === 5) {
       this.selectionCount += 1;
       this.lastColorSelectedIndex = this.getColorIndex(
@@ -143,12 +144,18 @@ export class HolidayConfig implements AfterViewInit {
         $event[$event.length - 1],
         this.colorData[this.lastColorSelectedIndex]
       );
-      const unselectedIndex = [];
+
       this.source.forEach((v, index) => {
-        if ($event.some((data) => v.value === data.value)) {
+        if (!$event.some((data) => v.value === data.value)) {
           unselectedIndex.push(index);
         }
       });
+      if (unselectedIndex.length > 0) {
+        unselectedIndex.forEach((value) => {
+          this.source[value].colorValue = null;
+          this.source[value].isActive = false;
+        });
+      }
       console.log(unselectedIndex);
     } else if ($event.length <= 4 && $event.length >= 1) {
       this.selectionCount += 1;
