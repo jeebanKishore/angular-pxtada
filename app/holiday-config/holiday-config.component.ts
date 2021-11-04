@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { from } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 export interface HolidayConfigModel {
   text: string;
