@@ -6,7 +6,8 @@
 
   <kendo-multiselect
     #list
-    [popupSettings]="{ animate:false,width:auto, height: auto}"
+    [popupSettings]="{ animate:false,width:auto}"
+    [listHeight]="245"
     [checkboxes]="{ checkOnClick: false }"
     [autoClose]="false"
     [data]="data"
@@ -21,6 +22,7 @@
     animate="false"
   ></kendo-multiselect>
 </div>
+<!-----This element to preview the color and it's assignment sequence only and will ne removed in future.-->
 <div style="position: absolute; bottom: 0px; right: 0px">
   <ul>
     <li *ngFor="let colr of colorData">
