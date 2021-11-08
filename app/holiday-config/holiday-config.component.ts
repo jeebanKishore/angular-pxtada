@@ -27,52 +27,52 @@ export class HolidayConfig implements AfterViewInit {
   public source: Array<HolidayConfigModel> = [
     {
       value: 1,
-      text: 'Sarine',
+      text: 'US',
       colorValue: null,
     },
     {
       value: 2,
-      text: 'Willamina',
+      text: 'India',
       colorValue: null,
     },
     {
       value: 3,
-      text: 'Maribeth',
+      text: 'UK',
       colorValue: null,
     },
     {
       value: 4,
-      text: 'Leoline',
+      text: 'France',
       colorValue: null,
     },
     {
       value: 5,
-      text: 'Pavia',
+      text: 'China',
       colorValue: null,
     },
     {
       value: 6,
-      text: 'Philis',
+      text: 'Japan',
       colorValue: null,
     },
     {
       value: 7,
-      text: 'Annadiane',
+      text: 'South Korea',
       colorValue: null,
     },
     {
       value: 8,
-      text: 'Kerr',
+      text: 'Taiwan',
       colorValue: null,
     },
     {
       value: 9,
-      text: 'Alysa',
+      text: 'Germany',
       colorValue: null,
     },
     {
       value: 10,
-      text: 'Crystie',
+      text: 'Malaysia',
       colorValue: null,
     },
   ];
