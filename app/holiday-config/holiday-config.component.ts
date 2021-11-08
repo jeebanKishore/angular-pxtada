@@ -17,7 +17,7 @@ export interface HolidayConfigModel {
 
 @Component({
   selector: 'my-holiday-config',
-  styles: ['.k-calendar { margin: 0 auto; }'],
+  styles: ['.k-calendar { margin: 0 auto; } .k-multiselect .k-multiselect-wrap ul, .k-dropdowntree .k-multiselect-wrap ul {display: none;}'],
   templateUrl: './view.html',
 })
 export class HolidayConfig implements AfterViewInit {
