@@ -20,16 +20,18 @@
     animate="false"
   ></kendo-multiselect>
 </div>
-<ul>
-  <li *ngFor="let colr of colorData">
-    <h3 [style.background-color]="colr">{{colr}}</h3>
-  </li>
-</ul>
+<div>
+  <ul>
+    <li *ngFor="let colr of colorData">
+      <h3 [style.background-color]="colr">{{colr}}</h3>
+    </li>
+  </ul>
 
-<ul>
-  <li *ngFor="let item of source">
-    <h3 *ngIf="item.colorValue" [style.background-color]="item.colorValue">
-      {{item.text}}
-    </h3>
-  </li>
-</ul>
+  <ul>
+    <li *ngFor="let item of source">
+      <h3 *ngIf="item.colorValue" [style.background-color]="item.colorValue">
+        {{item.text}}
+      </h3>
+    </li>
+  </ul>
+</div>
