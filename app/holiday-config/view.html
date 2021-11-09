@@ -19,22 +19,26 @@
     placeholder="Filter"
     (valueChange)="onValueChange($event)"
     (close)="preventClosingDropdown($event)"
-    animate="false"
   ></kendo-multiselect>
 </div>
 <!-----This element to preview the color and it's assignment sequence only and will ne removed in future.-->
 <div style="position: absolute; bottom: 0px; right: 0px">
   <ul>
-    <li *ngFor="let colr of colorData">
-      <h3 [style.background-color]="colr">{{colr}}</h3>
+    <li *ngFor="let colr of colorData;let i=index">
+      <h3
+        [style.background-color]="colr"
+        [style.border]="(lastSelectedValue===i)?'solid 2px':'solid 0px'"
+      >
+        {{colr+"-"+ i}}
+      </h3>
     </li>
   </ul>
 
   <ul>
-    <li *ngFor="let item of source">
-      <h3 *ngIf="item.colorValue" [style.background-color]="item.colorValue">
-        {{item.text}}
-      </h3>
-    </li>
+    <ng-container *ngFor="let item of source">
+      <li *ngIf="item.colorValue">
+        <h3 [style.background-color]="item.colorValue">{{item.text}}</h3>
+      </li>
+    </ng-container>
   </ul>
 </div>

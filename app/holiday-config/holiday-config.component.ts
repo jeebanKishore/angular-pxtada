@@ -17,7 +17,7 @@ export interface HolidayConfigModel {
 
 @Component({
   selector: 'my-holiday-config',
-  styles: ['.k-calendar { margin: 0 auto; } .k-multiselect .k-multiselect-wrap ul, .k-dropdowntree .k-multiselect-wrap ul {display: none;}'],
+  styles: ['.k-calendar { margin: 0 auto; }'],
   templateUrl: './view.html',
 })
 export class HolidayConfig implements AfterViewInit {
@@ -80,7 +80,8 @@ export class HolidayConfig implements AfterViewInit {
   public data: Array<HolidayConfigModel>;
   public selectionCount = 0;
   public colorData = ['#83a1c2', '#B55F99', '#26A299', '#716ABA', '#9E5A6A'];
-
+  lastSelectedValue: HolidayConfigModel;
+  containSelectedIndexes: Array<HolidayConfigModel> = [];
   lastColorSelectedIndex = this.colorData.length - 1;
   constructor() {
     // To Do : If From server if we get 5 nos of Active items, mark all others as inactive
@@ -118,11 +119,26 @@ export class HolidayConfig implements AfterViewInit {
      * If event length is 5 we have to disable the other remaining selections.
      */
     if ($event.length === 5) {
+      if (
+        this.lastSelectedValue &&
+        this.lastSelectedValue.value === $event[$event.length - 1].value
+      ) {
+        this.lastColorSelectedIndex = this.getColorIndex(
+          this.lastColorSelectedIndex,
+          'right'
+        );
+      } else {
+        this.lastColorSelectedIndex = this.getColorIndex(
+          this.lastColorSelectedIndex,
+          'left'
+        );
+      }
+      this.lastSelectedValue = $event[$event.length - 1];
       this.selectionCount += 1;
-      this.lastColorSelectedIndex = this.getColorIndex(
-        this.lastColorSelectedIndex,
-        'left'
-      );
+      // this.lastColorSelectedIndex = this.getColorIndex(
+      //   this.lastColorSelectedIndex,
+      //   'left'
+      // );
       this.source = this.manupulateSourceAsperSelection(
         this.source,
         $event[$event.length - 1],
@@ -138,10 +154,6 @@ export class HolidayConfig implements AfterViewInit {
        */
       if (this.selectionCount > $event.length) {
         this.selectionCount -= 1;
-        this.lastColorSelectedIndex = this.getColorIndex(
-          this.lastColorSelectedIndex,
-          'right'
-        );
         this.clearColorValueFromUnselectedItems(
           this.source,
           $event,
@@ -149,11 +161,22 @@ export class HolidayConfig implements AfterViewInit {
           true
         );
       } else {
+        if (
+          this.lastSelectedValue &&
+          this.lastSelectedValue.value === $event[$event.length - 1].value
+        ) {
+          this.lastColorSelectedIndex = this.getColorIndex(
+            this.lastColorSelectedIndex,
+            'right'
+          );
+        } else {
+          this.lastColorSelectedIndex = this.getColorIndex(
+            this.lastColorSelectedIndex,
+            'left'
+          );
+        }
+        this.lastSelectedValue = $event[$event.length - 1];
         this.selectionCount += 1;
-        this.lastColorSelectedIndex = this.getColorIndex(
-          this.lastColorSelectedIndex,
-          'left'
-        );
         this.source = this.manupulateSourceAsperSelection(
           this.source,
           $event[$event.length - 1],
