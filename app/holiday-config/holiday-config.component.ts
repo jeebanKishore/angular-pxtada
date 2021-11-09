@@ -127,13 +127,15 @@ export class HolidayConfig implements AfterViewInit {
           this.lastColorSelectedIndex,
           'right'
         );
+        this.lastSelectedValue = $event[$event.length - 1];
       } else {
         this.lastColorSelectedIndex = this.getColorIndex(
           this.lastColorSelectedIndex,
           'left'
         );
+        this.lastSelectedValue = $event[$event.length - 1];
       }
-      this.lastSelectedValue = $event[$event.length - 1];
+
       this.selectionCount += 1;
       // this.lastColorSelectedIndex = this.getColorIndex(
       //   this.lastColorSelectedIndex,
@@ -169,14 +171,14 @@ export class HolidayConfig implements AfterViewInit {
             this.lastColorSelectedIndex,
             'right'
           );
+          this.lastSelectedValue = $event[$event.length - 1];
         } else {
           this.lastColorSelectedIndex = this.getColorIndex(
             this.lastColorSelectedIndex,
             'left'
           );
-        }
-        this.lastSelectedValue = $event[$event.length - 1];
-        this.selectionCount += 1;
+          this.lastSelectedValue = $event[$event.length - 1];
+        }this.selectionCount += 1;
         this.source = this.manupulateSourceAsperSelection(
           this.source,
           $event[$event.length - 1],
