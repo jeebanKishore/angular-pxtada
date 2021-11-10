@@ -76,13 +76,9 @@ export class HolidayConfig implements AfterViewInit {
       colorValue: null,
     },
   ];
-  disableConfig = false;
   public data: Array<HolidayConfigModel>;
-  public selectionCount = 0;
+  selectionCount = 0;
   public colorData = ['#83a1c2', '#B55F99', '#26A299', '#716ABA', '#9E5A6A'];
-  lastSelectedValue: HolidayConfigModel;
-  containSelectedIndexes: Array<HolidayConfigModel> = [];
-  lastColorSelectedIndex = this.colorData.length - 1;
   constructor() {
     // To Do : If From server if we get 5 nos of Active items, mark all others as inactive
     this.source.forEach((v) => {
@@ -126,8 +122,7 @@ export class HolidayConfig implements AfterViewInit {
       this.source.forEach((countryData: HolidayConfigModel, index: number) => {
         if (countryData.value === $event[$event.length - 1].value) {
           this.source[index] = $event[$event.length - 1];
-        }
-        if (!countryData) {
+        } else if (countryData.colorValue === null) {
           this.source[index].isActive = false;
         }
       });
@@ -139,12 +134,9 @@ export class HolidayConfig implements AfterViewInit {
       this.source.forEach((countryData: HolidayConfigModel, index: number) => {
         if (countryData.value === $event[$event.length - 1].value) {
           this.source[index] = $event[$event.length - 1];
+          this.source[index].isActive = true;
         }
       });
-      /**
-       * We have to clear all other items, clear their color value and mark them as inactive.
-       */
-      this.clearColorValueFromUnselectedItems(this.source, $event, false, true);
     } else if ($event.length === 0) {
       /**
        *If there is no item selected clear color data and mark all as active
