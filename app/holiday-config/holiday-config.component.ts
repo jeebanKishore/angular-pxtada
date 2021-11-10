@@ -151,52 +151,26 @@ export class HolidayConfig implements AfterViewInit {
        */
       this.clearColorValueFromUnselectedItems(this.source, $event, true, false);
     } else if ($event.length <= 4 && $event.length >= 1) {
-      /**
-       *If the selection is between 1 and 4 assign Color value as they are avilable sequentially
-       */
-      if (this.selectionCount > $event.length) {
-        this.selectionCount -= 1;
-        this.clearColorValueFromUnselectedItems(
-          this.source,
-          $event,
-          false,
-          true
-        );
-      } else {
-        if (
-          this.lastSelectedValue &&
-          this.lastSelectedValue.value === $event[$event.length - 1].value
-        ) {
-          this.lastColorSelectedIndex = this.getColorIndex(
-            this.lastColorSelectedIndex,
-            'right'
-          );
-          this.lastSelectedValue = $event[$event.length - 1];
-        } else {
-          this.lastColorSelectedIndex = this.getColorIndex(
-            this.lastColorSelectedIndex,
-            'left'
-          );
-          this.lastSelectedValue = $event[$event.length - 1];
-        }
-        this.selectionCount += 1;
-        this.source = this.manupulateSourceAsperSelection(
-          this.source,
-          $event[$event.length - 1],
-          this.colorData[this.lastColorSelectedIndex]
-        );
-      }
+      $event[$event.length-1].colorValue = 
     } else if ($event.length === 0) {
       /**
        *If there is no item selected clear color data and mark all as active
        */
-      this.selectionCount = 0;
-      this.lastColorSelectedIndex = 0;
       this.source.forEach((value) => {
         value.isActive = true;
         value.colorValue = null;
       });
     }
+  }
+
+  getColorValue(source:Array<HolidayConfigModel>,colorData: Array<string>){
+    let colorvalue = ''
+colorData.forEach((value)=> {
+  if(!source.some(countryData => countryData.colorValue === value)){
+colorvalue = value;
+  }
+  return colorvalue;
+})
   }
   /**
    * This function is to rotate the index of colorData as called
