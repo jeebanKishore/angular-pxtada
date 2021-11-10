@@ -119,39 +119,32 @@ export class HolidayConfig implements AfterViewInit {
      * If event length is 5 we have to disable the other remaining selections.
      */
     if ($event.length === 5) {
-      if (
-        this.lastSelectedValue &&
-        this.lastSelectedValue.value === $event[$event.length - 1].value
-      ) {
-        this.lastColorSelectedIndex = this.getColorIndex(
-          this.lastColorSelectedIndex,
-          'right'
-        );
-        this.lastSelectedValue = $event[$event.length - 1];
-      } else {
-        this.lastColorSelectedIndex = this.getColorIndex(
-          this.lastColorSelectedIndex,
-          'left'
-        );
-        this.lastSelectedValue = $event[$event.length - 1];
-      }
-
-      this.selectionCount += 1;
-      // this.lastColorSelectedIndex = this.getColorIndex(
-      //   this.lastColorSelectedIndex,
-      //   'left'
-      // );
-      this.source = this.manupulateSourceAsperSelection(
+      $event[$event.length - 1].colorValue = this.getColorValue(
         this.source,
-        $event[$event.length - 1],
-        this.colorData[this.lastColorSelectedIndex]
+        this.colorData
       );
+      this.source.forEach((countryData: HolidayConfigModel, index: number) => {
+        if (countryData.value === $event[$event.length - 1].value) {
+          this.source[index] = $event[$event.length - 1];
+        }
+        if (!countryData) {
+          this.source[index].isActive = false;
+        }
+      });
+    } else if ($event.length <= 4 && $event.length >= 1) {
+      $event[$event.length - 1].colorValue = this.getColorValue(
+        this.source,
+        this.colorData
+      );
+      this.source.forEach((countryData: HolidayConfigModel, index: number) => {
+        if (countryData.value === $event[$event.length - 1].value) {
+          this.source[index] = $event[$event.length - 1];
+        }
+      });
       /**
        * We have to clear all other items, clear their color value and mark them as inactive.
        */
-      this.clearColorValueFromUnselectedItems(this.source, $event, true, false);
-    } else if ($event.length <= 4 && $event.length >= 1) {
-      $event[$event.length-1].colorValue = 
+      this.clearColorValueFromUnselectedItems(this.source, $event, false, true);
     } else if ($event.length === 0) {
       /**
        *If there is no item selected clear color data and mark all as active
@@ -163,54 +156,17 @@ export class HolidayConfig implements AfterViewInit {
     }
   }
 
-  getColorValue(source:Array<HolidayConfigModel>,colorData: Array<string>){
-    let colorvalue = ''
-colorData.forEach((value)=> {
-  if(!source.some(countryData => countryData.colorValue === value)){
-colorvalue = value;
-  }
-  return colorvalue;
-})
-  }
-  /**
-   * This function is to rotate the index of colorData as called
-   * @param: index = Current index of color assigned
-   * @param: type = Rotate the index to either left or right
-   */
-  getColorIndex(index: number, type: 'left' | 'right') {
-    if (type === 'left') {
-      if (index === 4) {
-        return 0;
-      } else {
-        return (index += 1);
-      }
-    } else if (type === 'right') {
-      if (index === 0) {
-        return 4;
-      } else {
-        return (index -= 1);
-      }
-    }
-  }
-
-  /**
-   * Assigned color value to the source array
-   * @param source: main item collection
-   * @param SelectionSet: Latest selection data
-   * @param colorValue: Colordata to assign
-   */
-  manupulateSourceAsperSelection(
+  getColorValue(
     source: Array<HolidayConfigModel>,
-    selectionSet: HolidayConfigModel,
-    colorValue: string
-  ) {
-    source.forEach((data: HolidayConfigModel) => {
-      data.isActive = true;
-      if (selectionSet.value === data.value) {
-        data.colorValue = colorValue;
+    colorData: Array<string>
+  ): string {
+    let colorvalue = [];
+    colorData.forEach((value, index) => {
+      if (!source.some((countryData) => countryData.colorValue === value)) {
+        colorvalue.push(index);
       }
     });
-    return source;
+    return colorData[colorvalue[0]];
   }
   /**
    * Clear color data and active status depending on supportedConfigurations
