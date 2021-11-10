@@ -115,6 +115,7 @@ export class HolidayConfig implements AfterViewInit {
      * If event length is 5 we have to disable the other remaining selections.
      */
     if ($event.length === 5) {
+      this.selectionCount += 1;
       $event[$event.length - 1].colorValue = this.getColorValue(
         this.source,
         this.colorData
@@ -127,16 +128,26 @@ export class HolidayConfig implements AfterViewInit {
         }
       });
     } else if ($event.length <= 4 && $event.length >= 1) {
-      $event[$event.length - 1].colorValue = this.getColorValue(
-        this.source,
-        this.colorData
-      );
-      this.source.forEach((countryData: HolidayConfigModel, index: number) => {
-        if (countryData.value === $event[$event.length - 1].value) {
-          this.source[index] = $event[$event.length - 1];
-          this.source[index].isActive = true;
-        }
-      });
+      if (this.selectionCount > $event.length) {
+        $event[$event.length - 1].colorValue = this.getColorValue(
+          this.source,
+          this.colorData
+        );
+        this.source.forEach(
+          (countryData: HolidayConfigModel, index: number) => {
+            if (countryData.value === $event[$event.length - 1].value) {
+              this.source[index] = $event[$event.length - 1];
+              this.source[index].isActive = true;
+            }
+          }
+        );
+      } else {
+        this.source.forEach(
+          (countryData: HolidayConfigModel, index: number) => {
+            this.source[index].isActive = true;
+          }
+        );
+      }
     } else if ($event.length === 0) {
       /**
        *If there is no item selected clear color data and mark all as active
