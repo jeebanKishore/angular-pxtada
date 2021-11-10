@@ -16,6 +16,7 @@
     [textField]="'text'"
     [valueField]="'value'"
     [(ngModel)]="value"
+    [clearButton]="false"
     placeholder="Filter"
     (valueChange)="onValueChange($event)"
     (close)="preventClosingDropdown($event)"
