@@ -178,7 +178,8 @@ export class HolidayConfig implements AfterViewInit {
             'left'
           );
           this.lastSelectedValue = $event[$event.length - 1];
-        }this.selectionCount += 1;
+        }
+        this.selectionCount += 1;
         this.source = this.manupulateSourceAsperSelection(
           this.source,
           $event[$event.length - 1],
