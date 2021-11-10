@@ -128,7 +128,8 @@ export class HolidayConfig implements AfterViewInit {
         }
       });
     } else if ($event.length <= 4 && $event.length >= 1) {
-      if (this.selectionCount > $event.length) {
+      if (this.selectionCount < $event.length) {
+        this.selectionCount += 1;
         $event[$event.length - 1].colorValue = this.getColorValue(
           this.source,
           this.colorData
@@ -142,9 +143,17 @@ export class HolidayConfig implements AfterViewInit {
           }
         );
       } else {
+        this.selectionCount -= 1;
         this.source.forEach(
           (countryData: HolidayConfigModel, index: number) => {
-            this.source[index].isActive = true;
+            if (
+              !$event.some(
+                (selection: HolidayConfigModel) =>
+                  countryData.value === selection.value
+              )
+            ) {
+              this.source[index].colorValue = null;
+            }
           }
         );
       }
@@ -152,11 +161,13 @@ export class HolidayConfig implements AfterViewInit {
       /**
        *If there is no item selected clear color data and mark all as active
        */
+      this.selectionCount = 0;
       this.source.forEach((value) => {
         value.isActive = true;
         value.colorValue = null;
       });
     }
+    console.log('final', this.source);
   }
 
   getColorValue(
