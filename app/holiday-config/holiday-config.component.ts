@@ -128,6 +128,9 @@ export class HolidayConfig implements AfterViewInit {
         }
       });
     } else if ($event.length <= 4 && $event.length >= 1) {
+      /**
+       * If the selection have more value, add colorto newly selected items
+       */
       if (this.selectionCount < $event.length) {
         this.selectionCount += 1;
         $event[$event.length - 1].colorValue = this.getColorValue(
@@ -143,6 +146,10 @@ export class HolidayConfig implements AfterViewInit {
           }
         );
       } else {
+        /**
+         * If selection have less nos of values, remove colorValue and
+         * if previously selection was 5 and now reduced, mark all as active.
+         */
         this.selectionCount -= 1;
         this.source.forEach(
           (countryData: HolidayConfigModel, index: number) => {
@@ -168,9 +175,12 @@ export class HolidayConfig implements AfterViewInit {
         value.colorValue = null;
       });
     }
-    console.log('final', this.source);
   }
-
+  /**
+   * @param source: Source Dataset
+   * @param colorData: Color dataset
+   * Parse the source dataset to extract first unused color and return it.
+   */
   getColorValue(
     source: Array<HolidayConfigModel>,
     colorData: Array<string>
@@ -183,38 +193,7 @@ export class HolidayConfig implements AfterViewInit {
     });
     return colorData[colorvalue[0]];
   }
-  /**
-   * Clear color data and active status depending on supportedConfigurations
-   * @param source: main item collection
-   * @param selectedItems: Latest selection dataset
-   * @param deactivateRemaining: Mark all unselected items as inactive
-   * @param activateRemaining: Mark all unselected items as active
-   *in both cases we have to clear the color data
-   */
-  clearColorValueFromUnselectedItems(
-    source: Array<HolidayConfigModel>,
-    selectedItems: Array<HolidayConfigModel>,
-    deactivateRemaining: boolean,
-    activateRemaining: boolean
-  ) {
-    const unselectedIndex = [];
-    source.forEach((v, index) => {
-      if (!selectedItems.some((data) => v.value === data.value)) {
-        unselectedIndex.push(index);
-      }
-    });
-    if (unselectedIndex.length > 0) {
-      unselectedIndex.forEach((value) => {
-        this.source[value].colorValue = null;
-        if (deactivateRemaining === true) {
-          this.source[value].isActive = false;
-        }
-        if (activateRemaining === true) {
-          this.source[value].isActive = true;
-        }
-      });
-    }
-  }
+
   /**
    * Kendo reference to mark all isActive flags as inactive an not selectable
    */
