@@ -80,7 +80,7 @@ export class HolidayConfig implements AfterViewInit {
   selectionCount = 0;
   public colorData = ['#83a1c2', '#B55F99', '#26A299', '#716ABA', '#9E5A6A'];
   constructor() {
-    // To Do : If From server if we get 5 nos of Active items, mark all others as inactive
+    // To Do : If From server if we get n nos of Active items, mark all others as inactive
     this.source.forEach((v) => {
       v.isActive = true;
     });
