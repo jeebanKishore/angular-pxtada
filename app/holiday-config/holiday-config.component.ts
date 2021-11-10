@@ -153,6 +153,7 @@ export class HolidayConfig implements AfterViewInit {
               )
             ) {
               this.source[index].colorValue = null;
+              this.source[index].isActive = true;
             }
           }
         );
