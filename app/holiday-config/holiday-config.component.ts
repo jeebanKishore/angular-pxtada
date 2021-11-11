@@ -22,6 +22,9 @@ export interface HolidayConfigModel {
   ::ng-deep .k-multiselect .k-multiselect-wrap li.k-button, .k-dropdowntree .k-multiselect-wrap li.k-button {
     display: none;
   }
+  .k-multiselect .k-multiselect-wrap .k-searchbar, .k-dropdowntree .k-multiselect-wrap .k-searchbar {
+    with:100%
+  }
   `,
   ],
   templateUrl: './view.html',
@@ -99,6 +102,11 @@ export class HolidayConfig implements AfterViewInit {
       stringData.text.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     //Open the Dropdown permanately.
     this.list.toggle(true);
+    debugger;
+    console.log(
+      this.list.hostElement.nativeElement.firstElementChild.children[1]
+        .firstElementChild.placeholder
+    );
     //Listen to input box changes to give out filtered data.
     this.list.filterChange
       .asObservable()
